@@ -66,7 +66,7 @@ Python 3.10 or later
 Webcam
 Windows/Linux/macOS
 Clone Repository
-git clone https://github.com/your-username/Virtual-AI-Mouse.git
+git clone https://github.com/sunidhii1103/Virtual-AI-Mouse.git
 cd Virtual-AI-Mouse
 Install Dependencies
 pip install -r requirements.txt
