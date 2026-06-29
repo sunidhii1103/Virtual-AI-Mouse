@@ -92,8 +92,8 @@ The project emphasizes modular software architecture, real-time processing, and 
 | Hand Tracking | MediaPipe |
 | Mouse Automation | PyAutoGUI |
 | Numerical Computing | NumPy |
-| Volume Control *(Optional)* | Pycaw |
-| Brightness Control *(Optional)* | screen-brightness-control |
+| Volume Control  | Pycaw |
+| Brightness Control | screen-brightness-control |
 
 ---
 
@@ -134,18 +134,23 @@ The gesture recognition engine determines finger states using the following form
 0 = Finger Folded
 ```
 
-| Gesture | Finger State | Action |
-|----------|--------------|--------|
-| ☝️ Index Finger | `[0,1,0,0,0]` | Cursor Movement |
-| 🤏 Thumb + Index Pinch | Distance Threshold | Left Click |
-| ✌️ Index + Middle | `[0,1,1,0,0]` | Scroll Mode |
-| 🤏 Index + Middle Pinch | Distance Threshold | Right Click |
-| 🤏 Thumb + Middle Pinch | Distance Threshold | Double Click |
-| 🤏 Thumb + Pinky Pinch | Distance Threshold | Drag & Drop |
-| 👍 Thumb Up | `[1,0,0,0,0]` | Next Slide |
-| 👎 Thumb Down | Thumb Orientation | Previous Slide |
-| 🖐️ Open Palm | `[1,1,1,1,1]` | Pause Cursor |
-| 🤏 Thumb–Index Distance | Continuous | Zoom In / Zoom Out |
+## ✋ Gesture Recognition Matrix
+
+The gesture recognition engine evaluates finger positioning in real time and maps specific hand configurations to native operating system triggers:
+
+| Gesture Shape | Detected System State | Hardware Action / Executed Event |
+| :--- | :--- | :--- |
+| **Index Finger + Thumb Out** | `MOUSE_MOVE` | Absolute desktop cursor navigation via Index tip. |
+| **All Fingers Curled Close** | `CLICK_LEFT` | Standard Left-Click / Selection trigger. |
+| **Index + Middle Extended** | `CLICK_RIGHT` | Standard Right-Click context menu drop-down. |
+| **Five Fingers Fully Open** | `PAGE_NAV` | Hand Wave Vertical Translation $\rightarrow$ Page Up / Page Down. |
+| **Closed Fist / Small Cluster** | `SLIDE_NEXT` | Injects macro pulse to advance presentation slides. |
+| **Downward Finger Arc / Droop** | `SLIDE_PREV` | Injects macro pulse to revert presentation slides. |
+| **Rigid L-Shape / Pistol Shape** | `BRIGHTNESS_CONTROL` | Slides your Windows panel backlight brightness up/down. |
+| **Three Fingers Extended** | `VOLUME_CONTROL` | Slides your native Windows master audio mixer up/down. |
+| **Dynamic 2-Finger Pinch** | `ZOOM_PINCH` | Pinch expansion/contraction $\rightarrow$ Universal `Ctrl + Mouse Wheel`. |
+
+> ⚠️ **Important:** The system defaults to an evaluation mode (`Status: OS Controls Disabled`) upon execution. Use your dedicated runtime hotkey toggle to switch the framework to **Active** mode to allow `PyAutoGUI` and native subprocess hooks to take command of your system peripherals.
 
 > **Note:** Gesture mappings can be customized within the gesture recognition module.
 
@@ -155,31 +160,20 @@ The gesture recognition engine determines finger states using the following form
 
 ```
 Virtual-AI-Mouse/
-│
-├── docs/
-│   ├── PRD.md
-│   ├── SRS.md
-│   ├── Architecture.md
-│   └── AGENTS.md
-│
-├── src/
-│   ├── main.py
-│   ├── HandTrackingModule.py
-│   ├── GestureRecognizer.py
-│   ├── MouseController.py
-│   └── utils.py
-│
-├── assets/
-│   ├── images/
-│   └── demo.mp4
-│
+├── config/
+│   └── settings.py          # Frame interpolation boundaries & dead-zone buffers
+├── core/
+│   ├── camera_module.py     # OpenCV capture window & FPS overlay matrices
+│   ├── gesture_recognizer.py# Landmark spatial calculators & state transitions
+│   └── controller.py        # PyAutoGUI macro executors & PowerShell driver hooks
 ├── tests/
-│   └── test_gestures.py
-│
-├── requirements.txt
-├── README.md
-├── LICENSE
-└── .gitignore
+│   └── test_gesture_recognizer.py # Verification assertion scripts (20/20 Passing)
+├── models/
+│   └── hand_landmarker.task # MediaPipe tracking weight configuration asset
+├── main.py                  # Core runtime orchestration script
+├── CODE_STATE.md            # Internal roadmap log tracker
+├── requirements.txt         # Package dependency manifestations
+└── README.md                # Project documentation
 ```
 
 ---
