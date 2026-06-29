@@ -49,6 +49,10 @@ Virtual AI Mouse/
 │   └── hand_landmarker.task # MediaPipe pre-compiled task weights file
 ├── main.py                  # Orchestration entry point
 └── CODE_STATE.md            # Active roadmap and build log tracking file
+
+---
+
+
 💻 Installation & Quick Start
 1. Prerequisites
 Ensure you are running Python 3.10+ on your machine.
