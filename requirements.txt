@@ -1,0 +1,12 @@
+# Core Dependencies
+opencv-python>=4.8.0
+mediapipe>=0.10.0
+pyautogui>=0.9.54
+
+# Optional/Platform-Specific Dependencies
+pycaw>=20181226; platform_system=="Windows"
+screen-brightness-control>=0.2.1; platform_system=="Windows"
+pynput>=1.7.6
+
+# Test Dependencies
+pytest>=7.0.0
