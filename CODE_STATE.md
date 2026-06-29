@@ -13,7 +13,7 @@ The **Virtual AI Mouse** is a real-time computer vision application that transla
 | **Scroll Mode** | Only Middle finger extended up | `pyautogui.scroll()` | Vertical delta movement | Active |
 | **Presentation Slide Next** | Only Thumb extended up | `pyautogui.press('right')` | Cooldown frames (15) | Active |
 | **Presentation Slide Prev** | Only Thumb extended down | `pyautogui.press('left')` | Cooldown frames (15) | Active |
-| **Volume Control** | Index, Middle, Ring up, Pinky curled | Pycaw volume change | Vertical delta movement | Active |
+| **Volume Control** | Index, Middle, Ring up, Pinky curled | `pyautogui.press('volumeup')` (up) / `pyautogui.press('volumedown')` (down) | Cooldown frames (5), vertical delta movement | Active |
 | **Page Up / Down** | Index, Middle, Ring, Pinky up, Thumb tucked | `pyautogui.press('pageup')` (up) / `pyautogui.press('pagedown')` (down) | Cooldown frames (15), anchor delta | Active |
 | **Zoom In / Out** | Thumb + Index extended, others curled (non-L-shape) | Hold `ctrl` and `pyautogui.scroll(100)` (in) / `pyautogui.scroll(-100)` (out) | Zoom distance dead-zone buffer (1.25x / 0.75x of baseline) | Active |
 | **Brightness Control** | Thumb + Index extended (L-shape / pistol at ~90 deg), others curled | SBC change brightness / PowerShell WMI Fallback | Vertical delta movement of tracking landmark | Active |

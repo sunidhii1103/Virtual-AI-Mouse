@@ -45,15 +45,15 @@ def main() -> None:
     profiler = PipelineProfiler(warning_threshold_ms=66.0)
 
     # Determine system status warning
-    system_status = "System OK"
-    if sys_ctrl._volume_interface is None:
-        system_status = "OS Controls Disabled"
+    enable_os_control = True
+    system_status = "OS Controls Active" if enable_os_control else "OS Controls Disabled"
 
     # Tracking states
     prev_tracking_y: float | None = None
     prev_zoom_dist: float | None = None
     prev_page_nav_y: float | None = None
     page_nav_cooldown_counter: int = 0
+    volume_cooldown_counter: int = 0
     fps = cfg.CAMERA_FPS
     last_frame_time = time.perf_counter()
 
@@ -117,7 +117,7 @@ def main() -> None:
 
                     # 5. Command dispatch (Action Phase)
                     with profiler.profile("Action Controller Execution Time"):
-                        if is_inside_zone:
+                        if is_inside_zone and enable_os_control:
                             # Move cursor on MOVE, CLICK_LEFT, and ZOOM gestures
                             if gesture.label in [
                                 cfg.GESTURE_MOVE,
@@ -190,7 +190,14 @@ def main() -> None:
                                         pyautogui.keyUp("ctrl")
 
                                     elif gesture.label == cfg.GESTURE_VOLUME:
-                                        sys_ctrl.change_volume(increase=increase_value)
+                                        if volume_cooldown_counter == 0:
+                                            if increase_value:
+                                                pyautogui.press("volumeup")
+                                                logger.info("Volume Action: Volume Up")
+                                            else:
+                                                pyautogui.press("volumedown")
+                                                logger.info("Volume Action: Volume Down")
+                                            volume_cooldown_counter = cfg.VOLUME_COOLDOWN_FRAMES
 
                                     elif gesture.label == cfg.GESTURE_BRIGHTNESS:
                                         sys_ctrl.change_brightness(increase=increase_value)
@@ -239,6 +246,8 @@ def main() -> None:
                 pres_ctrl.update_cooldown()
                 if page_nav_cooldown_counter > 0:
                     page_nav_cooldown_counter -= 1
+                if volume_cooldown_counter > 0:
+                    volume_cooldown_counter -= 1
 
                 # Verify latency budget and log warnings if needed
                 profiler.log_and_verify_budget()
