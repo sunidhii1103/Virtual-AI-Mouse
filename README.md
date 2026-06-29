@@ -17,7 +17,6 @@ The application captures live video from a webcam, detects hand landmarks using 
 - [Installation](#-installation)
 - [Usage](#-usage)
 - [Future Enhancements](#-future-enhancements)
-- [Documentation](#-documentation)
 - [License](#-license)
 
 ---
@@ -222,10 +221,10 @@ pip install screen-brightness-control
 
 # ▶️ Usage
 
-Run the application
+Run the application from the root directory:
 
 ```bash
-python src/main.py
+python main.py
 ```
 
 The application will
@@ -256,18 +255,7 @@ pytest tests/
 
 ---
 
-# 📚 Documentation
 
-Additional project documentation is available in the **docs/** directory.
-
-| File | Description |
-|------|-------------|
-| **PRD.md** | Product Requirements Document |
-| **SRS.md** | Software Requirements Specification |
-| **Architecture.md** | System Architecture |
-| **AGENTS.md** | AI Development Guidelines |
-
----
 
 # 🤝 Contributing
 
