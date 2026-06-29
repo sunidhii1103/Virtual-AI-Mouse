@@ -140,14 +140,14 @@ The gesture recognition engine evaluates finger positioning in real time and map
 | Gesture Shape | Detected System State | Hardware Action / Executed Event |
 | :--- | :--- | :--- |
 | **Index Finger + Thumb Out** | `MOUSE_MOVE` | Absolute desktop cursor navigation via Index tip. |
-| **All Fingers Curled Close** | `CLICK_LEFT` | Standard Left-Click / Selection trigger. |
-| **Index + Middle Extended** | `CLICK_RIGHT` | Standard Right-Click context menu drop-down. |
+| **Index Finger + thumb** | `CLICK_LEFT` | Standard Left-Click / Selection trigger. |
+| **Index + Middle touched** | `CLICK_RIGHT` | Standard Right-Click context menu drop-down. |
 | **Five Fingers Fully Open** | `PAGE_NAV` | Hand Wave Vertical Translation $\rightarrow$ Page Up / Page Down. |
-| **Closed Fist / Small Cluster** | `SLIDE_NEXT` | Injects macro pulse to advance presentation slides. |
-| **Downward Finger Arc / Droop** | `SLIDE_PREV` | Injects macro pulse to revert presentation slides. |
-| **Rigid L-Shape / Pistol Shape** | `BRIGHTNESS_CONTROL` | Slides your Windows panel backlight brightness up/down. |
+| **upward 3 finger arc** | `SLIDE_NEXT` | Injects macro pulse to advance presentation slides. |
+| **Downward 3 Finger Arc / Droop** | `SLIDE_PREV` | Injects macro pulse to revert presentation slides. |
+| **Pistol Shape** | `BRIGHTNESS_CONTROL` | Slides your Windows panel backlight brightness up/down. |
 | **Three Fingers Extended** | `VOLUME_CONTROL` | Slides your native Windows master audio mixer up/down. |
-| **Dynamic 2-Finger Pinch** | `ZOOM_PINCH` | Pinch expansion/contraction $\rightarrow$ Universal `Ctrl + Mouse Wheel`. |
+| **Dynamic 2-Finger Pinch (IN/OUT)** | `ZOOM_PINCH` | Pinch expansion/contraction $\rightarrow$ Universal `Ctrl + Mouse Wheel`. |
 
 > ⚠️ **Important:** The system defaults to an evaluation mode (`Status: OS Controls Disabled`) upon execution. Use your dedicated runtime hotkey toggle to switch the framework to **Active** mode to allow `PyAutoGUI` and native subprocess hooks to take command of your system peripherals.
 
