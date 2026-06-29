@@ -1,3 +1,23 @@
-.pytest_cache/ 
-__pycache__/ 
-*.pyc 
+
+# AI Agent/IDE footprints
+.roo/
+.cline/
+.cursor/
+.history/
+*scratchpad*
+*.log
+
+# Python artifacts
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+env/
+
+# MediaPipe Binaries
+*.task
+*.pb
+
+# OS specific files
+.DS_Store
+Thumbs.db
